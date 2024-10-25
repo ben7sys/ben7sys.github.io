@@ -1,4 +1,33 @@
 ---
 layout: home
-# Index page
+title: "Welcome to My Personal Website"
 ---
+
+<div class="home-intro">
+  <h1>Welcome to <em>{{ site.title }}</em></h1>
+  <p>{{ site.description }}</p>
+</div>
+
+<section class="home-projects">
+  <h2>Projects</h2>
+  <ul>
+    {% for project in site.projects %}
+    <li>
+      <a href="{{ project.url | relative_url }}">{{ project.title }}</a>
+      <p>{{ project.description }}</p>
+    </li>
+    {% endfor %}
+  </ul>
+</section>
+
+<section class="home-articles">
+  <h2>Recent Articles</h2>
+  <ul>
+    {% for post in paginator.posts %}
+    <li>
+      <a href="{{ post.url | relative_url }}">{{ post.title }}</a>
+      <p>{{ post.excerpt }}</p>
+    </li>
+    {% endfor %}
+  </ul>
+</section>
