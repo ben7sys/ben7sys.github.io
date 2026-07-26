@@ -1,0 +1,24 @@
+---
+import StarlightPage from '@astrojs/starlight/components/StarlightPage.astro';
+
+const description = 'Die angeforderte Seite wurde nicht gefunden.';
+---
+
+<StarlightPage
+  frontmatter={{
+    title: 'Seite nicht gefunden',
+    description,
+    pagefind: false,
+    editUrl: false,
+  }}
+  hasSidebar={false}
+>
+  <p class="hero-lead">
+    Die angeforderte Adresse existiert nicht oder wurde geändert.
+  </p>
+
+  <p>
+    <a href="/">Zur Startseite</a> oder
+    <a href="/wissen/">zur Wissensbasis</a> wechseln.
+  </p>
+</StarlightPage>
