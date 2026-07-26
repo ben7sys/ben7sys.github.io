@@ -31,7 +31,7 @@ export default defineConfig({
         { label: 'Start', link: '/' },
         {
           label: 'Wissen',
-          autogenerate: { directory: 'wissen' },
+          items: [{ autogenerate: { directory: 'wissen' } }],
         },
         {
           label: 'Werkzeuge',
