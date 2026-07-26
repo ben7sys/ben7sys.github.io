@@ -1,46 +1,53 @@
 # ben7sys.github.io
 
-Öffentliche technische Wissensbasis und Werkzeuglabor für nachhaltige Systeme, Automatisierung und digitale Souveränität.
+Öffentliche technische Wissensbasis und Werkzeuglabor auf Basis von Astro und
+Starlight.
 
-## Bereiche
+## Architektur
 
-- **Wissen:** bereinigte technische Beiträge als Jekyll-Posts
-- **Werkzeuge:** statische Browser-Werkzeuge ohne unnötiges Backend
-- **Über:** Zweck, Veröffentlichungsgrundsätze und Datenschutzmodell
+- Astro erzeugt vollständig statische Dateien.
+- Starlight stellt Navigation, Suche und Dokumentationslayout bereit.
+- Wissensinhalte liegen als Markdown unter `src/content/docs/wissen/`.
+- Interaktive Werkzeuge liegen als Astro-Seiten unter `src/pages/werkzeuge/`.
+- Browser-Werkzeuge verwenden kein Backend und speichern keine Eingaben.
+- GitHub Actions validiert Pull Requests und veröffentlicht `master`.
 
 ## Lokale Entwicklung
 
-Voraussetzungen: Ruby, Bundler und die im Repository definierten Abhängigkeiten.
+Voraussetzungen:
+
+- Node.js 24 oder neuer
+- npm
 
 ```bash
-bundle install
-bundle exec jekyll serve
+npm install
+npm run dev
 ```
 
-Website anschließend unter `http://127.0.0.1:4000` öffnen.
+Produktionsbuild:
+
+```bash
+npm run build
+```
+
+Die erzeugte Website liegt anschließend unter `dist/`.
 
 ## Veröffentlichung
 
-GitHub Pages veröffentlicht den freigegebenen Stand des Repositorys. Änderungen zunächst auf einem Branch umsetzen, lokal bauen und über einen Pull Request nach `master` integrieren.
+1. Änderungen auf einem Branch erstellen.
+2. Pull Request öffnen.
+3. Workflow `Validate` erfolgreich abschließen.
+4. Nach `master` mergen.
+5. Workflow `Deploy to GitHub Pages` veröffentlicht `dist/`.
+
+In `Settings → Pages → Build and deployment` muss als Quelle **GitHub
+Actions** ausgewählt sein.
 
 ## Qualitätsregeln
 
-- keine Zugangsdaten, Kundendaten oder internen Infrastrukturdetails veröffentlichen
-- Fakten, Annahmen und bekannte Grenzen unterscheiden
-- Werkzeuge standardmäßig lokal im Browser ausführen
-- externe Abhängigkeiten minimieren und offenlegen
-- Links, Mobilansicht und Build vor der Freigabe prüfen
-
-## Struktur
-
-```text
-_posts/       Wissensbeiträge
-_tabs/        Hauptnavigation
-tools/        Werkzeugseiten
-assets/       statische Ressourcen
-_config.yml   Jekyll- und Website-Konfiguration
-```
-
-## Lizenz
-
-Vorhandene Theme- und Drittanbieter-Lizenzen beachten. Für eigene Inhalte und Werkzeuge ist die Repository-Lizenz maßgeblich.
+- Fakten und Annahmen unterscheiden.
+- Keine internen Systeme, Kundendaten oder Secrets veröffentlichen.
+- Primärquellen bevorzugen.
+- Verweise statt Duplikate verwenden.
+- Abhängigkeiten exakt versionieren.
+- Interaktive Werkzeuge lokal und ohne unnötige Datenflüsse umsetzen.

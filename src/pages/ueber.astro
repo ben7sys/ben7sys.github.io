@@ -1,0 +1,42 @@
+---
+import StarlightPage from '@astrojs/starlight/components/StarlightPage.astro';
+
+const description =
+  'Zweck, Qualitätsregeln und Datenschutzprinzipien von ben7sys.';
+---
+
+<StarlightPage frontmatter={{ title: 'Über', description }}>
+  <p class="hero-lead">
+    ben7sys ist eine öffentliche technische Wissensbasis mit integriertem
+    Werkzeuglabor.
+  </p>
+
+  <h2>Zweck</h2>
+  <p>
+    Veröffentlicht werden allgemein nutzbare technische Inhalte und kleine
+    Werkzeuge zu nachhaltigen Systemen, Automatisierung, Self-Hosting, Linux,
+    lokaler KI und digitaler Souveränität.
+  </p>
+
+  <h2>Qualitätsregeln</h2>
+  <ul>
+    <li>Fakten, Annahmen und offene Punkte klar unterscheiden.</li>
+    <li>Primärquellen bevorzugen und Versionsstände nennen.</li>
+    <li>Verweise statt inhaltlicher Duplikate verwenden.</li>
+    <li>Keine internen Systeme, Kundendaten oder Zugangsdaten veröffentlichen.</li>
+    <li>Werkzeuge klein, nachvollziehbar und ohne unnötiges Backend halten.</li>
+  </ul>
+
+  <h2>Datenschutz</h2>
+  <p>
+    Die Website setzt keine eigenen Cookies und verwendet keine Analytics.
+    Interaktive Werkzeuge verarbeiten Eingaben lokal im Browser, sofern das
+    jeweilige Werkzeug nichts Abweichendes ausweist.
+  </p>
+
+  <h2>Quellcode</h2>
+  <p>
+    Der Quellcode und die Änderungshistorie liegen öffentlich auf
+    <a href="https://github.com/ben7sys/ben7sys.github.io">GitHub</a>.
+  </p>
+</StarlightPage>

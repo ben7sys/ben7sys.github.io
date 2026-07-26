@@ -1,0 +1,31 @@
+---
+import StarlightPage from '@astrojs/starlight/components/StarlightPage.astro';
+
+const description =
+  'Lokale Browser-Werkzeuge für klar begrenzte technische Aufgaben.';
+---
+
+<StarlightPage
+  frontmatter={{ title: 'Werkzeuge', description }}
+  hasSidebar={true}
+>
+  <p class="hero-lead">
+    Die Werkzeuge laufen statisch im Browser. Eingaben werden nicht an einen
+    Anwendungsserver übertragen und nicht dauerhaft gespeichert.
+  </p>
+
+  <div class="feature-grid">
+    <a class="tool-card" href="/werkzeuge/frontmatter-pruefer/">
+      <h2>Markdown-Frontmatter-Prüfer</h2>
+      <p>
+        YAML-Frontmatter erkennen, validieren, normalisieren und strukturiert
+        anzeigen.
+      </p>
+      <div class="tool-meta">
+        <span>lokal</span>
+        <span>YAML 1.2</span>
+        <span>ohne Speicherung</span>
+      </div>
+    </a>
+  </div>
+</StarlightPage>
