@@ -1,0 +1,9 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="630" viewBox="0 0 1200 630">
+  <rect width="1200" height="630" fill="#111916"/>
+  <circle cx="1030" cy="100" r="280" fill="#176b5b" opacity=".42"/>
+  <circle cx="110" cy="620" r="340" fill="#67c7b2" opacity=".14"/>
+  <text x="90" y="245" fill="#f4f8f6" font-family="system-ui, sans-serif" font-size="92" font-weight="700">ben7sys</text>
+  <text x="90" y="340" fill="#c4f2e7" font-family="system-ui, sans-serif" font-size="46">Technische Wissensbasis</text>
+  <text x="90" y="405" fill="#c4f2e7" font-family="system-ui, sans-serif" font-size="46">und Werkzeuglabor</text>
+  <text x="90" y="520" fill="#aebdb7" font-family="system-ui, sans-serif" font-size="28">nachhaltige Systeme · Automatisierung · digitale Souveränität</text>
+</svg>

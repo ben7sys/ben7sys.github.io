@@ -1,0 +1,338 @@
+---
+import StarlightPage from '@astrojs/starlight/components/StarlightPage.astro';
+
+const description =
+  'YAML-Frontmatter lokal im Browser erkennen, validieren und normalisieren.';
+---
+
+<StarlightPage
+  frontmatter={{ title: 'Markdown-Frontmatter-Prüfer', description }}
+>
+  <p>
+    Prüfe YAML-Frontmatter aus Markdown-Dateien. Das Werkzeug erkennt
+    Syntaxfehler und doppelte Schlüssel, zeigt Werte strukturiert an und
+    erzeugt eine normalisierte Ausgabe.
+  </p>
+
+  <div class="privacy-note">
+    <strong>Lokale Verarbeitung:</strong> Die Eingabe verlässt den Browser
+    nicht. Es gibt keine API-Aufrufe, Cookies oder lokale Speicherung.
+  </div>
+
+  <div class="tool-shell two-column">
+    <section class="tool-panel">
+      <label for="frontmatter-input">Markdown oder Frontmatter</label>
+      <textarea
+        id="frontmatter-input"
+        spellcheck="false"
+        aria-describedby="frontmatter-hint"
+      ></textarea>
+      <p id="frontmatter-hint">
+        Erforderlich sind öffnende und schließende Trennlinien mit
+        <code>---</code>.
+      </p>
+
+      <div class="tool-actions">
+        <button class="tool-button primary" id="analyze" type="button">
+          Prüfen
+        </button>
+        <button class="tool-button" id="example" type="button">
+          Beispiel laden
+        </button>
+        <button class="tool-button" id="reset" type="button">
+          Zurücksetzen
+        </button>
+      </div>
+
+      <p
+        class="tool-status"
+        id="status"
+        role="status"
+        aria-live="polite"
+      ></p>
+      <ul class="diagnostic-list" id="diagnostics"></ul>
+    </section>
+
+    <section class="tool-panel">
+      <label for="normalized-output">Normalisierte Ausgabe</label>
+      <textarea
+        id="normalized-output"
+        readonly
+        spellcheck="false"
+      ></textarea>
+
+      <div class="tool-actions">
+        <button class="tool-button" id="copy" type="button" disabled>
+          Ausgabe kopieren
+        </button>
+      </div>
+
+      <div id="result-summary" hidden>
+        <h2>Erkannte Schlüssel</h2>
+        <div class="table-wrap">
+          <table class="result-table">
+            <thead>
+              <tr>
+                <th>Schlüssel</th>
+                <th>Typ</th>
+                <th>Wert</th>
+              </tr>
+            </thead>
+            <tbody id="result-body"></tbody>
+          </table>
+        </div>
+      </div>
+    </section>
+  </div>
+
+  <h2>Grenzen</h2>
+  <p>
+    Geprüft wird YAML 1.2. Semantische Anforderungen eines konkreten
+    Repositorys oder Schemas werden nicht bewertet. YAML-Tags und komplexe
+    Datentypen können in der normalisierten Ausgabe vereinfacht werden.
+  </p>
+</StarlightPage>
+
+<script>
+  import { parseDocument, stringify } from 'yaml';
+
+  const input = document.querySelector('#frontmatter-input');
+  const output = document.querySelector('#normalized-output');
+  const status = document.querySelector('#status');
+  const diagnostics = document.querySelector('#diagnostics');
+  const resultSummary = document.querySelector('#result-summary');
+  const resultBody = document.querySelector('#result-body');
+  const analyzeButton = document.querySelector('#analyze');
+  const exampleButton = document.querySelector('#example');
+  const resetButton = document.querySelector('#reset');
+  const copyButton = document.querySelector('#copy');
+
+  if (
+    !(input instanceof HTMLTextAreaElement) ||
+    !(output instanceof HTMLTextAreaElement) ||
+    !(status instanceof HTMLElement) ||
+    !(diagnostics instanceof HTMLUListElement) ||
+    !(resultSummary instanceof HTMLElement) ||
+    !(resultBody instanceof HTMLTableSectionElement) ||
+    !(analyzeButton instanceof HTMLButtonElement) ||
+    !(exampleButton instanceof HTMLButtonElement) ||
+    !(resetButton instanceof HTMLButtonElement) ||
+    !(copyButton instanceof HTMLButtonElement)
+  ) {
+    throw new Error('Werkzeugoberfläche konnte nicht initialisiert werden.');
+  }
+
+  const example = `---
+title: Lokale Browser-Werkzeuge
+description: Datenschutz durch lokale Verarbeitung im Browser.
+status: stable
+doctype: article
+publishedAt: 2026-07-26
+tags:
+  - datenschutz
+  - browser
+---
+
+# Inhalt
+
+Der Markdown-Inhalt bleibt unverändert.`;
+
+  const setStatus = (message, state = '') => {
+    status.textContent = message;
+    status.dataset.state = state;
+  };
+
+  const clearResults = () => {
+    diagnostics.replaceChildren();
+    resultBody.replaceChildren();
+    resultSummary.hidden = true;
+    output.value = '';
+    copyButton.disabled = true;
+    setStatus('');
+  };
+
+  const addDiagnostic = (message) => {
+    const item = document.createElement('li');
+    item.textContent = message;
+    diagnostics.append(item);
+  };
+
+  const extractFrontmatter = (source) => {
+    const normalized = source.replace(/\r\n?/g, '\n');
+    const lines = normalized.split('\n');
+
+    if (lines[0]?.trim() !== '---') {
+      throw new Error(
+        'Die Eingabe muss in der ersten Zeile mit "---" beginnen.',
+      );
+    }
+
+    const closingIndex = lines.findIndex(
+      (line, index) =>
+        index > 0 && (line.trim() === '---' || line.trim() === '...'),
+    );
+
+    if (closingIndex === -1) {
+      throw new Error('Die schließende Frontmatter-Trennlinie fehlt.');
+    }
+
+    return {
+      yamlSource: lines.slice(1, closingIndex).join('\n'),
+      body: lines.slice(closingIndex + 1).join('\n'),
+    };
+  };
+
+  const valueType = (value) => {
+    if (value === null) return 'null';
+    if (Array.isArray(value)) return 'array';
+    if (value instanceof Date) return 'date';
+    return typeof value;
+  };
+
+  const displayValue = (value) => {
+    if (typeof value === 'string') return value;
+    if (value instanceof Date) return value.toISOString();
+    try {
+      return JSON.stringify(value);
+    } catch {
+      return String(value);
+    }
+  };
+
+  const findEmptyValues = (value, path = '') => {
+    const found = [];
+
+    if (value === null || value === '') {
+      found.push(path || '(Dokument)');
+      return found;
+    }
+
+    if (Array.isArray(value)) {
+      value.forEach((entry, index) => {
+        found.push(...findEmptyValues(entry, `${path}[${index}]`));
+      });
+      return found;
+    }
+
+    if (typeof value === 'object' && value !== null) {
+      for (const [key, entry] of Object.entries(value)) {
+        found.push(...findEmptyValues(entry, path ? `${path}.${key}` : key));
+      }
+    }
+
+    return found;
+  };
+
+  const renderTable = (data) => {
+    resultBody.replaceChildren();
+
+    for (const [key, value] of Object.entries(data)) {
+      const row = document.createElement('tr');
+      const keyCell = document.createElement('td');
+      const typeCell = document.createElement('td');
+      const valueCell = document.createElement('td');
+      const keyCode = document.createElement('code');
+      const valueCode = document.createElement('code');
+
+      keyCode.textContent = key;
+      valueCode.textContent = displayValue(value);
+      keyCell.append(keyCode);
+      typeCell.textContent = valueType(value);
+      valueCell.append(valueCode);
+      row.append(keyCell, typeCell, valueCell);
+      resultBody.append(row);
+    }
+
+    resultSummary.hidden = false;
+  };
+
+  const analyze = () => {
+    clearResults();
+
+    try {
+      const { yamlSource, body } = extractFrontmatter(input.value);
+      const document = parseDocument(yamlSource, {
+        prettyErrors: true,
+        strict: true,
+        uniqueKeys: true,
+      });
+
+      for (const warning of document.warnings) {
+        addDiagnostic(`Warnung: ${warning.message}`);
+      }
+
+      if (document.errors.length > 0) {
+        for (const error of document.errors) {
+          addDiagnostic(error.message);
+        }
+        setStatus('Frontmatter ist ungültig.', 'error');
+        return;
+      }
+
+      const data = document.toJS({ mapAsMap: false }) ?? {};
+
+      if (
+        typeof data !== 'object' ||
+        data === null ||
+        Array.isArray(data)
+      ) {
+        throw new Error(
+          'Frontmatter muss ein YAML-Objekt mit Schlüssel-Wert-Paaren sein.',
+        );
+      }
+
+      const emptyValues = findEmptyValues(data);
+      for (const path of emptyValues) {
+        addDiagnostic(`Leerer Wert: ${path}`);
+      }
+
+      const yaml = stringify(data, {
+        lineWidth: 0,
+        sortMapEntries: false,
+      }).trimEnd();
+      const normalizedBody = body.replace(/^\n+/, '');
+      output.value = `---\n${yaml}\n---${
+        normalizedBody ? `\n\n${normalizedBody}` : ''
+      }`;
+
+      renderTable(data);
+      copyButton.disabled = false;
+
+      const keyCount = Object.keys(data).length;
+      setStatus(
+        `Frontmatter gültig: ${keyCount} Schlüssel erkannt.`,
+        'ok',
+      );
+    } catch (error) {
+      const message =
+        error instanceof Error ? error.message : 'Unbekannter Fehler.';
+      addDiagnostic(message);
+      setStatus('Frontmatter konnte nicht geprüft werden.', 'error');
+    }
+  };
+
+  analyzeButton.addEventListener('click', analyze);
+
+  exampleButton.addEventListener('click', () => {
+    input.value = example;
+    analyze();
+    input.focus();
+  });
+
+  resetButton.addEventListener('click', () => {
+    input.value = '';
+    clearResults();
+    input.focus();
+  });
+
+  copyButton.addEventListener('click', async () => {
+    try {
+      await navigator.clipboard.writeText(output.value);
+      setStatus('Ausgabe kopiert.', 'ok');
+    } catch {
+      output.select();
+      document.execCommand('copy');
+      setStatus('Ausgabe kopiert.', 'ok');
+    }
+  });
+</script>

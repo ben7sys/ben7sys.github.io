@@ -1,0 +1,50 @@
+---
+import StarlightPage from '@astrojs/starlight/components/StarlightPage.astro';
+
+const title = 'Technische Wissensbasis und Werkzeuglabor';
+const description =
+  'Belastbare Dokumentation und lokale Browser-Werkzeuge für nachhaltige Systeme, Automatisierung und digitale Souveränität.';
+---
+
+<StarlightPage
+  frontmatter={{ title, description, pagefind: false }}
+  hasSidebar={false}
+>
+  <p class="hero-lead">
+    Belastbare technische Inhalte, nachvollziehbare Architekturentscheidungen
+    und kleine Werkzeuge, die Daten möglichst lokal verarbeiten.
+  </p>
+
+  <div class="feature-grid">
+    <a class="feature-card" href="/wissen/">
+      <h2>Wissen</h2>
+      <p>
+        Architekturwissen, Runbooks, Analysen und Lessons Learned — knapp,
+        überprüfbar und langfristig wartbar.
+      </p>
+    </a>
+
+    <a class="feature-card" href="/werkzeuge/">
+      <h2>Werkzeuge</h2>
+      <p>
+        Kleine statische Anwendungen für klar begrenzte Aufgaben. Kein Konto,
+        keine Cloud-Pflicht, keine unnötige Datenübertragung.
+      </p>
+    </a>
+
+    <a class="feature-card" href="/ueber/">
+      <h2>Grundsätze</h2>
+      <p>
+        Fakten vor Behauptungen, Verweise statt Duplikate und offene,
+        austauschbare Technik statt vermeidbarer Bindung.
+      </p>
+    </a>
+  </div>
+
+  <div class="privacy-note">
+    <strong>Datensparsam:</strong> Diese Website verwendet keine Analytics,
+    keine Cookies und keine extern eingebundenen Schriftarten. Werkzeuge
+    verarbeiten Eingaben ausschließlich im Browser, sofern am Werkzeug nicht
+    ausdrücklich anders angegeben.
+  </div>
+</StarlightPage>
