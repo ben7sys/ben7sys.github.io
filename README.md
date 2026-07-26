@@ -1,84 +1,46 @@
-<!-- markdownlint-disable-next-line -->
-<div align="center">
+# ben7sys.github.io
 
-  <!-- markdownlint-disable-next-line -->
-  # Chirpy Jekyll Theme
+Öffentliche technische Wissensbasis und Werkzeuglabor für nachhaltige Systeme, Automatisierung und digitale Souveränität.
 
-  A minimal, responsive, and feature-rich Jekyll theme for technical writing.
+## Bereiche
 
-  [![CI](https://img.shields.io/github/actions/workflow/status/cotes2020/jekyll-theme-chirpy/ci.yml?logo=github)][ci]&nbsp;
-  [![Codacy Badge](https://img.shields.io/codacy/grade/4e556876a3c54d5e8f2d2857c4f43894?logo=codacy)][codacy]&nbsp;
-  [![GitHub license](https://img.shields.io/github/license/cotes2020/jekyll-theme-chirpy?color=goldenrod)][license]&nbsp;
-  [![Gem Version](https://img.shields.io/gem/v/jekyll-theme-chirpy?&logo=RubyGems&logoColor=ghostwhite&label=gem&color=orange)][gem]&nbsp;
-  [![Open in Dev Containers](https://img.shields.io/badge/Dev_Containers-Open-deepskyblue?logo=linuxcontainers)][open-container]
+- **Wissen:** bereinigte technische Beiträge als Jekyll-Posts
+- **Werkzeuge:** statische Browser-Werkzeuge ohne unnötiges Backend
+- **Über:** Zweck, Veröffentlichungsgrundsätze und Datenschutzmodell
 
-  [**Live Demo** →][demo]
+## Lokale Entwicklung
 
-  [![Devices Mockup](https://chirpy-img.netlify.app/commons/devices-mockup.png)][demo]
+Voraussetzungen: Ruby, Bundler und die im Repository definierten Abhängigkeiten.
 
-</div>
+```bash
+bundle install
+bundle exec jekyll serve
+```
 
-## Features
+Website anschließend unter `http://127.0.0.1:4000` öffnen.
 
-- Dark Theme
-- Localized UI language
-- Pinned Posts on Home Page
-- Hierarchical Categories
-- Trending Tags
-- Table of Contents
-- Last Modified Date
-- Syntax Highlighting
-- Mathematical Expressions
-- Mermaid Diagrams & Flowcharts
-- Dark Mode Images
-- Embed Media
-- Comment Systems
-- Built-in Search
-- Atom Feeds
-- PWA
-- Web Analytics
-- SEO & Performance Optimization
+## Veröffentlichung
 
-## Documentation
+GitHub Pages veröffentlicht den freigegebenen Stand des Repositorys. Änderungen zunächst auf einem Branch umsetzen, lokal bauen und über einen Pull Request nach `master` integrieren.
 
-To learn how to use, develop, and upgrade the project, please refer to the [Wiki][wiki].
+## Qualitätsregeln
 
-## Contributing
+- keine Zugangsdaten, Kundendaten oder internen Infrastrukturdetails veröffentlichen
+- Fakten, Annahmen und bekannte Grenzen unterscheiden
+- Werkzeuge standardmäßig lokal im Browser ausführen
+- externe Abhängigkeiten minimieren und offenlegen
+- Links, Mobilansicht und Build vor der Freigabe prüfen
 
-Contributions (_pull requests_, _issues_, and _discussions_) are what make the open-source community such an amazing place
-to learn, inspire, and create. Any contributions you make are greatly appreciated.
-For details, see the "[Contributing Guidelines][contribute-guide]".
+## Struktur
 
-## Credits
+```text
+_posts/       Wissensbeiträge
+_tabs/        Hauptnavigation
+tools/        Werkzeugseiten
+assets/       statische Ressourcen
+_config.yml   Jekyll- und Website-Konfiguration
+```
 
-### Contributors
+## Lizenz
 
-Thanks to [all the contributors][contributors] involved in the development of the project!
-
-[![all-contributors](https://contrib.rocks/image?repo=cotes2020/jekyll-theme-chirpy&columns=16)][contributors]
-<sub> — Made with [contrib.rocks](https://contrib.rocks)</sub>
-
-### Third-Party Assets
-
-This project is built on the [Jekyll][jekyllrb] ecosystem and some [great libraries][lib], and is developed using [VS Code][vscode] as well as tools provided by [JetBrains][jetbrains] under a non-commercial open-source software license.
-
-The avatar and favicon for the project's website are from [ClipartMAX][clipartmax].
-
-## License
-
-This project is published under [MIT License][license].
-
-[gem]: https://rubygems.org/gems/jekyll-theme-chirpy
-[ci]: https://github.com/cotes2020/jekyll-theme-chirpy/actions/workflows/ci.yml?query=event%3Apush+branch%3Amaster
-[codacy]: https://app.codacy.com/gh/cotes2020/jekyll-theme-chirpy/dashboard?utm_source=gh&utm_medium=referral&utm_content=&utm_campaign=Badge_grade
-[license]: https://github.com/cotes2020/jekyll-theme-chirpy/blob/master/LICENSE
-[open-container]: https://vscode.dev/redirect?url=vscode://ms-vscode-remote.remote-containers/cloneInVolume?url=https://github.com/cotes2020/jekyll-theme-chirpy
-[jekyllrb]: https://jekyllrb.com/
-[clipartmax]: https://www.clipartmax.com/middle/m2i8b1m2K9Z5m2K9_ant-clipart-childrens-ant-cute/
-[demo]: https://cotes2020.github.io/chirpy-demo/
-[wiki]: https://github.com/cotes2020/jekyll-theme-chirpy/wiki
-[contribute-guide]: https://github.com/cotes2020/jekyll-theme-chirpy/blob/master/docs/CONTRIBUTING.md
-[contributors]: https://github.com/cotes2020/jekyll-theme-chirpy/graphs/contributors
-[lib]: https://github.com/cotes2020/chirpy-static-assets
-[vscode]: https://code.visualstudio.com/
-[jetbrains]: https://www.jetbrains.com/?from=jekyll-theme-chirpy
+Vorhandene Theme- und Drittanbieter-Lizenzen beachten. Für eigene Inhalte und Werkzeuge ist die Repository-Lizenz maßgeblich.
