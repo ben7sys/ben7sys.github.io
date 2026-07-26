@@ -13,6 +13,7 @@ export default defineConfig({
       description:
         'Technische Wissensbasis und lokale Browser-Werkzeuge für nachhaltige Systeme, Automatisierung und digitale Souveränität.',
       favicon: '/favicon.svg',
+      disable404Route: true,
       locales: {
         root: {
           label: 'Deutsch',
