@@ -4,6 +4,8 @@ on:
   push:
     branches:
       - agent/astro-starlight-rebuild
+    paths-ignore:
+      - .build-status.json
   pull_request:
   workflow_dispatch:
 
@@ -55,6 +57,35 @@ jobs:
           status=${PIPESTATUS[0]}
           echo "exit_code=$status" >> "$GITHUB_OUTPUT"
           exit 0
+
+      - name: Record build status
+        if: always()
+        shell: bash
+        env:
+          BUILD_EXIT_CODE: ${{ steps.build.outputs.exit_code }}
+        run: |
+          python - <<'PY'
+          import json
+          import os
+          from pathlib import Path
+
+          log = Path('build.log').read_text(errors='replace') if Path('build.log').exists() else ''
+          status = {
+              'commit': os.environ.get('GITHUB_SHA'),
+              'exit_code': int(os.environ.get('BUILD_EXIT_CODE') or 1),
+              'log_tail': log.splitlines()[-80:],
+          }
+          Path('.build-status.json').write_text(
+              json.dumps(status, ensure_ascii=False, indent=2) + '\n'
+          )
+          PY
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add .build-status.json
+          if ! git diff --cached --quiet; then
+            git commit -m "Record Astro build status [skip ci]"
+            git push origin HEAD:${{ github.event.pull_request.head.ref || github.ref_name }}
+          fi
 
       - name: Upload build diagnostics
         if: always()
