@@ -1,16 +1,11 @@
 name: Validate
 
 on:
-  push:
-    branches:
-      - agent/astro-starlight-rebuild
-    paths-ignore:
-      - .build-status.json
   pull_request:
   workflow_dispatch:
 
 permissions:
-  contents: write
+  contents: read
 
 jobs:
   build:
@@ -18,86 +13,15 @@ jobs:
     steps:
       - name: Checkout repository
         uses: actions/checkout@v7
-        with:
-          ref: ${{ github.event.pull_request.head.ref || github.ref_name }}
 
       - name: Set up Node.js
         uses: actions/setup-node@v6
         with:
           node-version: 24
+          cache: npm
 
       - name: Install dependencies
-        shell: bash
-        run: |
-          if [[ -f package-lock.json ]]; then
-            npm ci
-          else
-            npm install --no-audit --no-fund
-          fi
-
-      - name: Commit generated lockfile
-        if: ${{ hashFiles('package-lock.json') != '' }}
-        shell: bash
-        run: |
-          if git ls-files --error-unmatch package-lock.json >/dev/null 2>&1; then
-            exit 0
-          fi
-          git config user.name "github-actions[bot]"
-          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
-          git add package-lock.json
-          git commit -m "Add reproducible dependency lockfile"
-          git push origin HEAD:${{ github.event.pull_request.head.ref || github.ref_name }}
+        run: npm ci
 
       - name: Build static site
-        id: build
-        shell: bash
-        run: |
-          set +e
-          npm run build 2>&1 | tee build.log
-          status=${PIPESTATUS[0]}
-          echo "exit_code=$status" >> "$GITHUB_OUTPUT"
-          exit 0
-
-      - name: Record build status
-        if: always()
-        shell: bash
-        env:
-          BUILD_EXIT_CODE: ${{ steps.build.outputs.exit_code }}
-        run: |
-          python - <<'PY'
-          import json
-          import os
-          from pathlib import Path
-
-          log = Path('build.log').read_text(errors='replace') if Path('build.log').exists() else ''
-          status = {
-              'commit': os.environ.get('GITHUB_SHA'),
-              'exit_code': int(os.environ.get('BUILD_EXIT_CODE') or 1),
-              'log_tail': log.splitlines()[-80:],
-          }
-          Path('.build-status.json').write_text(
-              json.dumps(status, ensure_ascii=False, indent=2) + '\n'
-          )
-          PY
-          git config user.name "github-actions[bot]"
-          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
-          git add .build-status.json
-          if ! git diff --cached --quiet; then
-            git commit -m "Record Astro build status [skip ci]"
-            git push origin HEAD:${{ github.event.pull_request.head.ref || github.ref_name }}
-          fi
-
-      - name: Upload build diagnostics
-        if: always()
-        uses: actions/upload-artifact@v4
-        with:
-          name: build-diagnostics
-          path: |
-            build.log
-            package-lock.json
-          if-no-files-found: error
-          retention-days: 1
-
-      - name: Fail on build error
-        if: steps.build.outputs.exit_code != '0'
-        run: exit 1
+        run: npm run build
