@@ -11,7 +11,7 @@ export default defineConfig({
     starlight({
       title: 'ben7sys',
       description:
-        'Technische Wissensbasis und lokale Browser-Werkzeuge für nachhaltige Systeme, Automatisierung und digitale Souveränität.',
+        'Technische Systeme verstehen, Entscheidungen nachvollziehbar treffen und Lösungen kontrolliert umsetzen.',
       favicon: '/favicon.svg',
       disable404Route: true,
       locales: {
@@ -27,7 +27,10 @@ export default defineConfig({
           href: 'https://github.com/ben7sys',
         },
       ],
-      customCss: ['./src/styles/custom.css'],
+      customCss: [
+        './src/styles/custom.css',
+        './src/styles/visitor-value.css',
+      ],
       sidebar: [
         { label: 'Start', link: '/' },
         {
