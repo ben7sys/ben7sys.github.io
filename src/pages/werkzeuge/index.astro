@@ -2,7 +2,7 @@
 import StarlightPage from '@astrojs/starlight/components/StarlightPage.astro';
 
 const description =
-  'Lokale Browser-Werkzeuge für klar begrenzte technische Aufgaben.';
+  'Direkt nutzbare Browser-Werkzeuge zum Prüfen, Strukturieren und Vereinfachen technischer Daten.';
 ---
 
 <StarlightPage
@@ -10,22 +10,41 @@ const description =
   hasSidebar={true}
 >
   <p class="hero-lead">
-    Die Werkzeuge laufen statisch im Browser. Eingaben werden nicht an einen
-    Anwendungsserver übertragen und nicht dauerhaft gespeichert.
+    Hier erhältst du für klar begrenzte technische Aufgaben ein direkt nutzbares
+    Ergebnis. Die Werkzeuge laufen statisch im Browser; Eingaben werden nicht an
+    einen Anwendungsserver übertragen und nicht dauerhaft gespeichert.
   </p>
+
+  <h2>Direkt nutzbar</h2>
 
   <div class="feature-grid">
     <a class="tool-card" href="/werkzeuge/frontmatter-pruefer/">
-      <h2>Markdown-Frontmatter-Prüfer</h2>
+      <h3>Markdown-Frontmatter-Prüfer</h3>
       <p>
         YAML-Frontmatter erkennen, validieren, normalisieren und strukturiert
-        anzeigen.
+        anzeigen. Geeignet zur schnellen Kontrolle von Markdown-Dokumenten.
       </p>
       <div class="tool-meta">
         <span>lokal</span>
         <span>YAML 1.2</span>
         <span>ohne Speicherung</span>
       </div>
+      <span class="card-link">Prüfer öffnen →</span>
     </a>
+  </div>
+
+  <h2>Grundsätze für Werkzeuge</h2>
+
+  <ul class="value-list">
+    <li><strong>Klare Aufgabe:</strong> Ein Werkzeug löst ein eindeutig abgegrenztes Problem.</li>
+    <li><strong>Direktes Ergebnis:</strong> Der Nutzen ist ohne Konto oder Einrichtung verfügbar.</li>
+    <li><strong>Lokale Verarbeitung:</strong> Daten bleiben nach Möglichkeit im Browser.</li>
+    <li><strong>Nachvollziehbarkeit:</strong> Verhalten und Grenzen werden offen beschrieben.</li>
+    <li><strong>Wenig Abhängigkeiten:</strong> Keine unnötigen Dienste, Tracker oder Backends.</li>
+  </ul>
+
+  <div class="privacy-note">
+    <strong>Prüfregel:</strong> Weicht ein Werkzeug von der lokalen Verarbeitung
+    ab, muss dies direkt am Werkzeug klar ausgewiesen werden.
   </div>
 </StarlightPage>
