@@ -1,50 +1,112 @@
 ---
 import StarlightPage from '@astrojs/starlight/components/StarlightPage.astro';
 
-const title = 'Technische Wissensbasis und Werkzeuglabor';
+const title = 'Technische Systeme verstehen, entscheiden und umsetzen';
 const description =
-  'Belastbare Dokumentation und lokale Browser-Werkzeuge für nachhaltige Systeme, Automatisierung und digitale Souveränität.';
+  'Belastbare Orientierung, nachvollziehbare Entscheidungen und direkt nutzbare Werkzeuge für nachhaltige und souveräne IT-Systeme.';
 ---
 
 <StarlightPage
   frontmatter={{ title, description, pagefind: false }}
   hasSidebar={false}
 >
+  <p class="eyebrow">Öffentliche technische Wissensbasis</p>
+
   <p class="hero-lead">
-    Belastbare technische Inhalte, nachvollziehbare Architekturentscheidungen
-    und kleine Werkzeuge, die Daten möglichst lokal verarbeiten.
+    Diese Seite hilft dir, technische Möglichkeiten einzuordnen, Entscheidungen
+    nachvollziehbar zu treffen und Lösungen kontrolliert umzusetzen — ohne
+    unnötige Abhängigkeiten oder undurchsichtige Blackboxes.
   </p>
+
+  <div class="cta-row">
+    <a class="cta-link primary" href="/wissen/">Wissen nutzen</a>
+    <a class="cta-link" href="/werkzeuge/">Werkzeuge öffnen</a>
+  </div>
+
+  <h2>Was du hier mitnehmen sollst</h2>
+
+  <div class="value-grid">
+    <section class="value-card">
+      <span class="value-number">01</span>
+      <h3>Verstehen</h3>
+      <p>
+        Technische Zusammenhänge, Systemgrenzen, Abhängigkeiten und Risiken
+        verständlich einordnen.
+      </p>
+    </section>
+
+    <section class="value-card">
+      <span class="value-number">02</span>
+      <h3>Entscheiden</h3>
+      <p>
+        Optionen anhand klarer Kriterien vergleichen und tragfähige
+        Architekturentscheidungen treffen.
+      </p>
+    </section>
+
+    <section class="value-card">
+      <span class="value-number">03</span>
+      <h3>Umsetzen</h3>
+      <p>
+        Anleitungen, Prinzipien und übertragbare Lösungswege für die praktische
+        Arbeit verwenden.
+      </p>
+    </section>
+
+    <section class="value-card">
+      <span class="value-number">04</span>
+      <h3>Prüfen</h3>
+      <p>
+        Technische Daten und Strukturen mit kleinen lokalen Werkzeugen direkt
+        im Browser kontrollieren.
+      </p>
+    </section>
+
+    <section class="value-card">
+      <span class="value-number">05</span>
+      <h3>Vereinfachen</h3>
+      <p>
+        Komplexität, Handarbeit und vermeidbare Anbieterbindung systematisch
+        reduzieren.
+      </p>
+    </section>
+  </div>
+
+  <h2>So ist die Seite aufgebaut</h2>
 
   <div class="feature-grid">
     <a class="feature-card" href="/wissen/">
-      <h2>Wissen</h2>
+      <h3>Wissen</h3>
       <p>
-        Architekturwissen, Runbooks, Analysen und Lessons Learned — knapp,
-        überprüfbar und langfristig wartbar.
+        Architekturprinzipien, Analysen und dokumentierte Lösungswege mit klarer
+        Trennung zwischen Fakten, Annahmen und offenen Punkten.
       </p>
+      <span class="card-link">Zu den Inhalten →</span>
     </a>
 
     <a class="feature-card" href="/werkzeuge/">
-      <h2>Werkzeuge</h2>
+      <h3>Werkzeuge</h3>
       <p>
         Kleine statische Anwendungen für klar begrenzte Aufgaben. Kein Konto,
-        keine Cloud-Pflicht, keine unnötige Datenübertragung.
+        keine Cloud-Pflicht und keine unnötige Datenübertragung.
       </p>
+      <span class="card-link">Werkzeuge öffnen →</span>
     </a>
 
     <a class="feature-card" href="/ueber/">
-      <h2>Grundsätze</h2>
+      <h3>Grundsätze</h3>
       <p>
-        Fakten vor Behauptungen, Verweise statt Duplikate und offene,
-        austauschbare Technik statt vermeidbarer Bindung.
+        Nachvollziehbarkeit, Datenschutz, offene Technik und langfristige
+        Wartbarkeit bestimmen, was veröffentlicht wird.
       </p>
+      <span class="card-link">Anspruch und Grenzen →</span>
     </a>
   </div>
 
   <div class="privacy-note">
     <strong>Datensparsam:</strong> Diese Website verwendet keine Analytics,
-    keine Cookies und keine extern eingebundenen Schriftarten. Werkzeuge
-    verarbeiten Eingaben ausschließlich im Browser, sofern am Werkzeug nicht
-    ausdrücklich anders angegeben.
+    keine eigenen Cookies und keine extern eingebundenen Schriftarten.
+    Werkzeuge verarbeiten Eingaben ausschließlich im Browser, sofern am
+    Werkzeug nicht ausdrücklich anders angegeben.
   </div>
 </StarlightPage>
