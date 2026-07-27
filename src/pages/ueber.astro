@@ -2,41 +2,67 @@
 import StarlightPage from '@astrojs/starlight/components/StarlightPage.astro';
 
 const description =
-  'Zweck, Qualitätsregeln und Datenschutzprinzipien von ben7sys.';
+  'Zweck, Nutzenversprechen, Qualitätsregeln und Grenzen von ben7sys.';
 ---
 
 <StarlightPage frontmatter={{ title: 'Über', description }}>
   <p class="hero-lead">
-    ben7sys ist eine öffentliche technische Wissensbasis mit integriertem
-    Werkzeuglabor.
+    ben7sys ist eine öffentliche technische Wissensbasis mit Werkzeuglabor. Ziel
+    ist nicht, möglichst viel Inhalt zu veröffentlichen, sondern Menschen bei
+    belastbaren technischen Entscheidungen und kontrollierbaren Lösungen zu
+    unterstützen.
   </p>
 
-  <h2>Zweck</h2>
+  <h2>Nutzenversprechen</h2>
   <p>
-    Veröffentlicht werden allgemein nutzbare technische Inhalte und kleine
-    Werkzeuge zu nachhaltigen Systemen, Automatisierung, Self-Hosting, Linux,
-    lokaler KI und digitaler Souveränität.
+    Du sollst die Seite mit mehr Klarheit, einer nachvollziehbaren Entscheidung
+    oder einem direkt nutzbaren Ergebnis verlassen.
+  </p>
+
+  <ul class="value-list">
+    <li><strong>Verstehen:</strong> technische Zusammenhänge und Systemgrenzen einordnen.</li>
+    <li><strong>Entscheiden:</strong> Vor- und Nachteile anhand klarer Kriterien bewerten.</li>
+    <li><strong>Umsetzen:</strong> übertragbare Prinzipien, Anleitungen und Lösungswege nutzen.</li>
+    <li><strong>Prüfen:</strong> Ergebnisse mit nachvollziehbaren Methoden oder Werkzeugen kontrollieren.</li>
+    <li><strong>Vereinfachen:</strong> Komplexität, Handarbeit und vermeidbare Bindungen reduzieren.</li>
+  </ul>
+
+  <h2>Für wen die Seite gedacht ist</h2>
+  <p>
+    Für Menschen, die technische Systeme nicht nur benutzen, sondern verstehen,
+    gestalten und langfristig kontrollieren möchten — von Self-Hosting und Linux
+    über Automatisierung bis zu lokaler KI und digitaler Souveränität.
+  </p>
+
+  <h2>Was hier veröffentlicht wird</h2>
+  <p>
+    Allgemein nutzbare technische Inhalte, Architekturentscheidungen,
+    übertragbare Lessons Learned und kleine Browser-Werkzeuge. Persönliche
+    Projektberichte werden nur veröffentlicht, wenn daraus ein klarer Nutzen für
+    andere entsteht: Problem, Entscheidung, Umsetzung und übertragbares Ergebnis.
   </p>
 
   <h2>Qualitätsregeln</h2>
   <ul>
     <li>Fakten, Annahmen und offene Punkte klar unterscheiden.</li>
-    <li>Primärquellen bevorzugen und Versionsstände nennen.</li>
+    <li>Primärquellen bevorzugen und Versions- oder Prüfstände nennen.</li>
     <li>Verweise statt inhaltlicher Duplikate verwenden.</li>
-    <li>Keine internen Systeme, Kundendaten oder Zugangsdaten veröffentlichen.</li>
+    <li>Keine internen Systeme, Kundendaten, Zugangsdaten oder Secrets veröffentlichen.</li>
     <li>Werkzeuge klein, nachvollziehbar und ohne unnötiges Backend halten.</li>
+    <li>Offene und austauschbare Technik gegenüber vermeidbarer Anbieterbindung bevorzugen.</li>
   </ul>
 
   <h2>Datenschutz</h2>
   <p>
-    Die Website setzt keine eigenen Cookies und verwendet keine Analytics.
-    Interaktive Werkzeuge verarbeiten Eingaben lokal im Browser, sofern das
-    jeweilige Werkzeug nichts Abweichendes ausweist.
+    Die Website setzt keine eigenen Cookies und verwendet keine Analytics oder
+    extern eingebundenen Schriftarten. Interaktive Werkzeuge verarbeiten Eingaben
+    lokal im Browser, sofern das jeweilige Werkzeug nichts Abweichendes ausweist.
   </p>
 
   <h2>Quellcode</h2>
   <p>
     Der Quellcode und die Änderungshistorie liegen öffentlich auf
-    <a href="https://github.com/ben7sys/ben7sys.github.io">GitHub</a>.
+    <a href="https://github.com/ben7sys/ben7sys.github.io">GitHub</a>. Damit sind
+    Aufbau, technische Entscheidungen und Weiterentwicklung nachvollziehbar.
   </p>
 </StarlightPage>
