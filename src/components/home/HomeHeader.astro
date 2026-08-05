@@ -1,0 +1,24 @@
+---
+interface Props {
+  title?: string;
+  description?: string;
+}
+
+const {
+  title = 'ben7sys',
+  description =
+    'Technische Einordnung, belastbare Entscheidungen und praxistaugliche Werkzeuge für nachhaltige Systeme.',
+} = Astro.props;
+---
+
+<header class="home-header">
+  <div>
+    <p class="home-kicker">Technik · Architektur · Digitale Souveränität</p>
+    <h1>{title}</h1>
+    <p class="home-intro">{description}</p>
+  </div>
+
+  <a class="home-header__github" href="https://github.com/ben7sys" aria-label="ben7sys auf GitHub">
+    GitHub
+  </a>
+</header>

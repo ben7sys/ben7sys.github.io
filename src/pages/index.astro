@@ -1,50 +1,47 @@
 ---
+import { getCollection } from 'astro:content';
 import StarlightPage from '@astrojs/starlight/components/StarlightPage.astro';
+import HomeHeader from '../components/home/HomeHeader.astro';
+import TagList from '../components/home/TagList.astro';
+import ArticleList from '../components/home/ArticleList.astro';
 
-const title = 'Technische Wissensbasis und Werkzeuglabor';
+const title = 'ben7sys';
 const description =
-  'Belastbare Dokumentation und lokale Browser-Werkzeuge für nachhaltige Systeme, Automatisierung und digitale Souveränität.';
+  'Technische Einordnung, belastbare Entscheidungen und praxistaugliche Werkzeuge für nachhaltige Systeme.';
+
+const docs = await getCollection('docs');
+const articles = docs
+  .filter(
+    ({ data }) =>
+      data.doctype === 'article' &&
+      data.status === 'stable' &&
+      data.publishedAt,
+  )
+  .sort(
+    (a, b) =>
+      (b.data.publishedAt?.getTime() ?? 0) -
+      (a.data.publishedAt?.getTime() ?? 0),
+  )
+  .map(({ id, data }) => ({
+    title: data.title,
+    description: data.description,
+    href: `/${id.replace(/\/index$/, '')}/`,
+    publishedAt: data.publishedAt,
+    tags: data.tags,
+  }));
+
+const tags = [...new Set(articles.flatMap((article) => article.tags ?? []))].sort(
+  (a, b) => a.localeCompare(b, 'de'),
+);
 ---
 
 <StarlightPage
   frontmatter={{ title, description, pagefind: false }}
   hasSidebar={false}
 >
-  <p class="hero-lead">
-    Belastbare technische Inhalte, nachvollziehbare Architekturentscheidungen
-    und kleine Werkzeuge, die Daten möglichst lokal verarbeiten.
-  </p>
-
-  <div class="feature-grid">
-    <a class="feature-card" href="/wissen/">
-      <h2>Wissen</h2>
-      <p>
-        Architekturwissen, Runbooks, Analysen und Lessons Learned — knapp,
-        überprüfbar und langfristig wartbar.
-      </p>
-    </a>
-
-    <a class="feature-card" href="/werkzeuge/">
-      <h2>Werkzeuge</h2>
-      <p>
-        Kleine statische Anwendungen für klar begrenzte Aufgaben. Kein Konto,
-        keine Cloud-Pflicht, keine unnötige Datenübertragung.
-      </p>
-    </a>
-
-    <a class="feature-card" href="/ueber/">
-      <h2>Grundsätze</h2>
-      <p>
-        Fakten vor Behauptungen, Verweise statt Duplikate und offene,
-        austauschbare Technik statt vermeidbarer Bindung.
-      </p>
-    </a>
-  </div>
-
-  <div class="privacy-note">
-    <strong>Datensparsam:</strong> Diese Website verwendet keine Analytics,
-    keine Cookies und keine extern eingebundenen Schriftarten. Werkzeuge
-    verarbeiten Eingaben ausschließlich im Browser, sofern am Werkzeug nicht
-    ausdrücklich anders angegeben.
-  </div>
+  <main class="home-shell">
+    <HomeHeader title={title} description={description} />
+    <TagList tags={tags} />
+    <ArticleList articles={articles} />
+  </main>
 </StarlightPage>
