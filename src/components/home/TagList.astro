@@ -1,0 +1,18 @@
+---
+interface Props {
+  tags: string[];
+}
+
+const { tags } = Astro.props;
+---
+
+{tags.length > 0 && (
+  <nav class="tag-list" aria-label="Artikel-Tags">
+    <a class="tag-chip is-active" href="#artikel">Alle</a>
+    {tags.map((tag) => (
+      <a class="tag-chip" href={`#tag-${tag.toLowerCase().replace(/[^a-z0-9äöüß]+/gi, '-')}`}>
+        {tag}
+      </a>
+    ))}
+  </nav>
+)}

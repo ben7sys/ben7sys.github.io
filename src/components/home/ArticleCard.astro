@@ -1,0 +1,30 @@
+---
+interface Props {
+  title: string;
+  description: string;
+  href: string;
+  publishedAt?: Date;
+  tags?: string[];
+}
+
+const { title, description, href, publishedAt, tags = [] } = Astro.props;
+const formattedDate = publishedAt
+  ? new Intl.DateTimeFormat('de-DE', {
+      day: '2-digit',
+      month: 'long',
+      year: 'numeric',
+    }).format(publishedAt)
+  : undefined;
+---
+
+<article class="article-card">
+  <a class="article-card__link" href={href}>
+    <div class="article-card__meta">
+      {formattedDate && <time datetime={publishedAt?.toISOString()}>{formattedDate}</time>}
+      {tags.length > 0 && <span>{tags.slice(0, 2).join(' · ')}</span>}
+    </div>
+    <h2>{title}</h2>
+    <p>{description}</p>
+    <span class="article-card__more" aria-hidden="true">Artikel lesen →</span>
+  </a>
+</article>

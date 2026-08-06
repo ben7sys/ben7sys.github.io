@@ -1,0 +1,37 @@
+---
+import ArticleCard from './ArticleCard.astro';
+
+interface Article {
+  title: string;
+  description: string;
+  href: string;
+  publishedAt?: Date;
+  tags?: string[];
+}
+
+interface Props {
+  articles: Article[];
+}
+
+const { articles } = Astro.props;
+---
+
+<section id="artikel" class="article-list" aria-labelledby="article-list-title">
+  <div class="section-heading">
+    <div>
+      <p class="section-kicker">Aktuelle Beiträge</p>
+      <h2 id="article-list-title">Artikel</h2>
+    </div>
+    <span>{articles.length} {articles.length === 1 ? 'Beitrag' : 'Beiträge'}</span>
+  </div>
+
+  {articles.length > 0 ? (
+    <div class="article-grid">
+      {articles.map((article) => <ArticleCard {...article} />)}
+    </div>
+  ) : (
+    <p class="article-empty">
+      Noch keine veröffentlichten Artikel vorhanden.
+    </p>
+  )}
+</section>
