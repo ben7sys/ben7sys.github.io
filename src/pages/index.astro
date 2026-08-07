@@ -25,7 +25,7 @@ const articles = docs
   .map(({ id, data }) => ({
     title: data.title,
     description: data.description,
-    href: `/${id.replace(/\\/index$/, '')}/`,
+    href: `/${id.replace(/\/index$/, '')}/`,
     publishedAt: data.publishedAt,
     tags: data.tags,
   }));
