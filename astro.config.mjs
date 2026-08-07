@@ -27,7 +27,7 @@ export default defineConfig({
           href: 'https://github.com/ben7sys',
         },
       ],
-      customCss: ['./src/styles/custom.css'],
+      customCss: ['./src/styles/custom.css', './src/styles/7sys-theme.css'],
       sidebar: [
         { label: 'Start', link: '/' },
         {

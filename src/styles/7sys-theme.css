@@ -1,0 +1,58 @@
+:root {
+  --7sys-blue: #3f79d0;
+  --7sys-violet: #6a4fb3;
+  --7sys-gradient: linear-gradient(90deg, #3f79d0 0%, #6a4fb3 100%);
+
+  --7sys-bg-light: #f7f7f8;
+  --7sys-surface-light: #ffffff;
+  --7sys-text-light: #1a1a1d;
+  --7sys-muted-light: #66666d;
+  --7sys-border-light: #d9dce3;
+
+  --7sys-bg-dark: #0a0a0a;
+  --7sys-surface-dark: #141414;
+  --7sys-text-dark: #d3d3d3;
+  --7sys-muted-dark: #777777;
+  --7sys-border-dark: #304b72;
+
+  --sl-color-accent-low: #e9eef9;
+  --sl-color-accent: var(--7sys-blue);
+  --sl-color-accent-high: #244f8c;
+  --sl-color-white: var(--7sys-text-light);
+  --sl-color-gray-1: #2b2b30;
+  --sl-color-gray-2: #4d4d54;
+  --sl-color-gray-3: var(--7sys-muted-light);
+  --sl-color-gray-4: #9a9aa1;
+  --sl-color-gray-5: var(--7sys-border-light);
+  --sl-color-gray-6: #ededf0;
+  --sl-color-black: var(--7sys-bg-light);
+}
+
+:root[data-theme="dark"] {
+  --sl-color-accent-low: #18233b;
+  --sl-color-accent: var(--7sys-blue);
+  --sl-color-accent-high: #a9c4f0;
+  --sl-color-white: var(--7sys-text-dark);
+  --sl-color-gray-1: #c1c1c4;
+  --sl-color-gray-2: #a0a0a3;
+  --sl-color-gray-3: var(--7sys-muted-dark);
+  --sl-color-gray-4: #4a4a50;
+  --sl-color-gray-5: #2b2b31;
+  --sl-color-gray-6: var(--7sys-surface-dark);
+  --sl-color-black: var(--7sys-bg-dark);
+}
+
+.site-title {
+  background: var(--7sys-gradient);
+  background-clip: text;
+  -webkit-background-clip: text;
+  color: transparent;
+}
+
+:root[data-theme="dark"] .home-header__github:hover,
+:root[data-theme="dark"] .home-header__github:focus-visible,
+:root[data-theme="dark"] .tag-chip:hover,
+:root[data-theme="dark"] .tag-chip:focus-visible,
+:root[data-theme="dark"] .tag-chip.is-active {
+  border-color: var(--7sys-border-dark);
+}
