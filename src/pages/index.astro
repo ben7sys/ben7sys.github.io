@@ -25,7 +25,7 @@ const articles = docs
   .map(({ id, data }) => ({
     title: data.title,
     description: data.description,
-    href: `/${id.replace(/\/index$/, '')}/`,
+    href: `/${id.replace(/\\/index$/, '')}/`,
     publishedAt: data.publishedAt,
     tags: data.tags,
   }));
@@ -36,7 +36,13 @@ const tags = [...new Set(articles.flatMap((article) => article.tags ?? []))].sor
 ---
 
 <StarlightPage
-  frontmatter={{ title, description, pagefind: false }}
+  frontmatter={{
+    title,
+    description,
+    pagefind: false,
+    template: 'splash',
+    tableOfContents: false,
+  }}
   hasSidebar={false}
 >
   <main class="home-shell">
